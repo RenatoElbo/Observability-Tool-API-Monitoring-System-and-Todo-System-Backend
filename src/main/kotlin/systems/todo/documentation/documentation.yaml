@@ -1,0 +1,218 @@
+openapi: "3.0.3"
+info:
+  title: "TODO API sample"
+  description: "A JSON API that allows you to view and add todo tasks"
+  version: "1.0.0"
+servers:
+  - url: "http://192.168.88.14:8080"
+    description: "Internal staging server for testing"
+paths:
+  /api/v2/create:
+    post:
+      tags:
+        - Database API
+      summary: "Create a Todo"
+      description: "Creates a new todo"
+      requestBody:
+        description: "A JSON object containing todo information"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GlobalResponse"
+      responses:
+        "201":
+          description: "Created"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/GlobalResponseData"
+#            text/plain:
+#              schema:
+#                type: "string"
+#              examples:
+#                Example#1:
+#                  value: "Customer stored correctly"
+  /api/v2/readall:
+    get:
+      tags:
+        - Database API
+      summary: "Return all Todos from database"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/GlobalResponseData"
+  /api/v2/read/{user_id}:
+    get:
+      tags:
+        - Database API
+      summary: "Return a Todo by id from database"
+      description: "Returns a todo by its ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/GlobalResponseData"
+  /api/v2/update/{id}:
+    patch:
+      tags:
+        - Database API
+      summary: "Update a Todo by id"
+      description: "Updates a todo by its ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/GlobalResponse"
+  /api/v2/delete/{id}:
+    delete:
+      tags:
+        - Database API
+      summary: "Delete a Todo"
+      description: "Deletes a todo by its ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/GlobalResponse"
+  /api/v2/delete-table/{id?}:
+    patch:
+      tags:
+        - Database API
+      summary: "Soft-delete Todo"
+      description: "Mark a Todo for deletion"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/GlobalResponse"
+  /todos:
+    get:
+      tags:
+        - External API
+      summary: "Fetch all Todos from External API"
+      description: "Fetch all todos from External API"
+      #      requestBody:
+      #        description: "A JSON object containing all todos from External API"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/GlobalResponseData"
+  /todos/{id}:
+    get:
+      tags:
+        - External API
+      summary: "Fetch todos by ID from External API"
+      description: "Fetch a todo from External API by ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/GlobalResponseData"
+  /todos/import-data-todos:
+    get:
+      tags:
+        - External API
+      summary: "Insert all todos fetched from External API to database"
+      description: "Insert all todos fetched from External API"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/GlobalResponse"
+
+components:
+  schemas:
+    GlobalResponse:
+      type: "object"
+      properties:
+        code:
+          type: "integer"
+          format: "int32"
+        status:
+          type: "boolean"
+        message:
+          type: "string"
+    GlobalResponseData:
+      type: "object"
+      properties:
+        code:
+          type: "integer"
+          format: "int32"
+        status:
+          type: "boolean"
+        message:
+          type: "string"
+        data:
+          type: "object"
+    Todo:
+      type: "object"
+      properties:
+        userId:
+          type: "integer"
+          format: "int32"
+        id:
+          type: "integer"
+          format: "int32"
+        title:
+          type: "string"
+        completed:
+          type: "boolean"
+        is_deleted:
+          type: "boolean"
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  # optional, for documentation purposes only
+
+  security:
+    - bearerAuth: [ ]

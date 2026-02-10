@@ -1,0 +1,140 @@
+openapi: "3.0.3"
+info:
+  title: "TODO API"
+  description: "A JSON API for login, logout, and audit trail functionality."
+  version: "1.0.1"
+servers:
+  - url: "http://192.168.88.27:8080"
+    description: "Internal staging server for testing"
+paths:
+  /user/login:
+    post:
+      tags:
+        - Authentication
+      summary: "Login with username and password"
+      description: "Authenticates the user and returns a JWT token with session info."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: "Login successful"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginModel"
+        "400":
+          description: "Validation error"
+        "401":
+          description: "Unauthorized"
+        "403":
+          description: "Email not verified"
+
+  /user/logout:
+    post:
+      tags:
+        - Authentication
+      summary: "Logout and clear session"
+      description: "Logs the user out by deleting their session."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LogoutRequest"
+      responses:
+        "200":
+          description: "Logout successful"
+        "404":
+          description: "User session not found"
+
+  /user/audit/{userId}:
+    get:
+      tags:
+        - Audit
+      summary: "Fetch audit trail for a user"
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+          description: "ID of the user"
+      responses:
+        "200":
+          description: "Audit data fetched successfully"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuditModel"
+        "400":
+          description: "Invalid user ID"
+components:
+  schemas:
+    LoginModel:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        username:
+          type: string
+        password:
+          type: string
+        jwt_token:
+          type: string
+          nullable: true
+        active_session:
+          type: string
+          nullable: true
+        active_session_deleted:
+          type: boolean
+          nullable: true
+
+    LoginRequest:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          nullable: true
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - password
+
+    LogoutRequest:
+      type: object
+      properties:
+        user_id:
+          type: integer
+      required:
+        - user_id
+
+    AuditModel:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+        browser:
+          type: string
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []

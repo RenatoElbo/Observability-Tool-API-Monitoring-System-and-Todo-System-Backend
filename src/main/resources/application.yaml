@@ -1,0 +1,15 @@
+ktor:
+  deployment:
+    port: 8080
+    host: "0.0.0.0"
+  application:
+    modules:
+      - com.marlow.ApplicationKt.module
+jwt:
+  domain: "https://jwt-provider-domain/"
+  audience: "jwt-audience"
+  realm: "ktor sample app"
+postgres:
+  url: "jdbc:postgresql://localhost/default"
+  user: postgres
+  password: posgres
