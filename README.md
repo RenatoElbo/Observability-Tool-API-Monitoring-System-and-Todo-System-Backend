@@ -1,48 +1,58 @@
-# todo-system
+# Observability Tool for API Monitoring
 
-This project was created using the [Ktor Project Generator](https://start.ktor.io).
+The **Observability Tool for API Monitoring** is a platform designed to help developers, QA engineers, and system administrators track, test, and monitor APIs in real time.  
+It provides visibility into API performance, logs, and test results, making it easier to detect issues, ensure reliability, and maintain healthy system operations.
 
-Here are some useful links to get you started:
+---
 
-- [Ktor Documentation](https://ktor.io/docs/home.html)
-- [Ktor GitHub page](https://github.com/ktorio/ktor)
-- The [Ktor Slack chat](https://app.slack.com/client/T09229ZC6/C0A974TJ9). You'll need to [request an invite](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) to join.
+# Programming Paradigm
+- Functional Programming
+- Object Oriented Programming
 
-## Features
+# Pattern
+- MVC Pattern
 
-Here's a list of features included in this project:
+---
 
-| Name                                                                   | Description                                                                        |
-| ------------------------------------------------------------------------|------------------------------------------------------------------------------------ |
-| [Routing](https://start.ktor.io/p/routing)                             | Provides a structured routing DSL                                                  |
-| [Content Negotiation](https://start.ktor.io/p/content-negotiation)     | Provides automatic content conversion according to Content-Type and Accept headers |
-| [kotlinx.serialization](https://start.ktor.io/p/kotlinx-serialization) | Handles JSON serialization using kotlinx.serialization library                     |
-| [Authentication](https://start.ktor.io/p/auth)                         | Provides extension point for handling the Authorization header                     |
-| [CORS](https://start.ktor.io/p/cors)                                   | Enables Cross-Origin Resource Sharing (CORS)                                       |
-| [OpenAPI](https://start.ktor.io/p/openapi)                             | Serves OpenAPI documentation                                                       |
-| [Swagger](https://start.ktor.io/p/swagger)                             | Serves Swagger UI for your project                                                 |
-| [Sessions](https://start.ktor.io/p/ktor-sessions)                      | Adds support for persistent sessions through cookies or headers                    |
-| [Authentication JWT](https://start.ktor.io/p/auth-jwt)                 | Handles JSON Web Token (JWT) bearer authentication scheme                          |
-| [Postgres](https://start.ktor.io/p/postgres)                           | Adds Postgres database to your application                                         |
+## Key Features
 
-## Building & Running
+### User Account Management
+- Users can create and manage accounts securely.
+- Role-based access control (e.g., Admin & User).
+- Login, Sign up, and logout.
 
-To build or run the project, use one of the following tasks:
+### Module & API Management
+- Add and organize modules and their related APIs.
+- Define API configurations (method, URL, headers, body, and parameters).
+- Easily update or delete existing API entries.
 
-| Task                          | Description                                                          |
-| -------------------------------|---------------------------------------------------------------------- |
-| `./gradlew test`              | Run the tests                                                        |
-| `./gradlew build`             | Build everything                                                     |
-| `buildFatJar`                 | Build an executable JAR of the server with all dependencies included |
-| `buildImage`                  | Build the docker image to use with the fat JAR                       |
-| `publishImageToLocalRegistry` | Publish the docker image locally                                     |
-| `run`                         | Run the server                                                       |
-| `runDocker`                   | Run using the local docker image                                     |
+### API Testing
+- Run manual and automated tests for APIs directly from the platform.
+- Display real-time results with response status, time, and size.
+- Supports monitoring of error codes, failed responses, and timeouts.
+- with AI debugger.
 
-If the server starts successfully, you'll see the following output:
+### Monitoring
+- Schedule periodic checks on selected APIs.
+- Get status updates, response history, and uptime metrics.
 
-```
-2024-12-04 14:32:45.584 [main] INFO  Application - Application started in 0.303 seconds.
-2024-12-04 14:32:45.682 [main] INFO  Application - Responding at http://0.0.0.0:8080
-```
+### Logs and History
+- Automatically store and display logs for each API request.
+- Filter and search logs by date, status, or API name.
+- Visual timeline of test and monitoring events.
 
+### Dashboard & Insights
+- Centralized observability dashboard.
+- Summaries of active APIs, success/failure rates, and recent activities.
+- Helps teams quickly detect anomalies or failing endpoints.
+
+---
+
+## Tech Stack
+
+- Backend: Kotlin (Ktor)
+- Frontend: React / Tailwind CSS / TypeScript / JavaScript
+- Database: PostgreSQL
+- Version Control: Git & GitHub
+
+---
